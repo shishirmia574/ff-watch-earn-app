@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wallet</title>
+</head>
+<body>
+    <h2>Your Coin Balance: {{ coins }} 🪙</h2>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul style="color: green;">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% if subscribed and sub_exp and sub_exp > now %}
+        <p style="color: green;">✅ You are subscribed until {{ sub_exp }}</p>
+    {% else %}
+        <form method="POST">
+            <label>Enter Subscription Code:</label><br>
+            <input type="text" name="code" placeholder="Enter code here" required>
+            <button type="submit">Activate</button>
+        </form>
+    {% endif %}
+
+    <br><a href="{{ url_for('index') }}">⬅️ Back to Home</a>
+</body>
+</html>

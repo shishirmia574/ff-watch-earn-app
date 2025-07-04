@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video List</title>
+</head>
+<body>
+    <h2>Welcome, {{ user }}</h2>
+    <a href="/upload">Upload Video</a> |
+    <a href="/wallet">Wallet</a> |
+    <a href="/redeem">Redeem</a> |
+    <a href="/logout">Logout</a>
+
+    <h3>All Approved Videos</h3>
+    {% for v in videos %}
+        <p>
+            <a href="/watch/{{ v[0] }}">{{ v[1] }}</a> (Uploader: {{ v[3] }})
+            {% if v[3] == user %}
+                | <a href="{{ url_for('delete', vid=v[0]) }}">Delete</a>
+            {% endif %}
+        </p>
+    {% endfor %}
+</body>
+</html>

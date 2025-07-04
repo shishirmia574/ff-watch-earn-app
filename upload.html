@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload</title>
+</head>
+<body>
+    <h2>Upload Your Video</h2>
+
+    {% if subscribed %}
+        <form method="POST" enctype="multipart/form-data">
+            Title: <input name="title" required><br>
+            Select Video: <input name="video" type="file" required><br>
+            <button type="submit">Upload</button>
+        </form>
+    {% else %}
+        <p style="color: red;"><b>You must <a href="{{ url_for('subscribe') }}">subscribe</a> before uploading videos.</b></p>
+    {% endif %}
+</body>
+</html>

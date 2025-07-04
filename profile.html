@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile - {{ username }}</title>
+    <style>
+        input[readonly] {
+            width: 350px;
+            font-size: 16px;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome, {{ username }}</h1>
+
+    <p><strong>Your Referral Code:</strong> {{ username }}</p>
+
+    <p>Share your referral link:</p>
+    <input type="text" readonly id="referralLink" value="http://127.0.0.1:5000/signup?ref={{ username }}">
+
+    <button onclick="copyReferralLink()">Copy Link</button>
+
+    <script>
+        function copyReferralLink() {
+            const copyText = document.getElementById('referralLink');
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the input field
+            navigator.clipboard.writeText(copyText.value).then(() => {
+                alert('Referral link copied to clipboard!');
+            }, () => {
+                alert('Failed to copy. Please copy manually.');
+            });
+        }
+    </script>
+
+    {% if ref_by %}
+        <p>You were referred by: <strong>{{ ref_by }}</strong></p>
+    {% else %}
+        <p>You joined directly (no referrer)</p>
+    {% endif %}
+
+    <br><a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
